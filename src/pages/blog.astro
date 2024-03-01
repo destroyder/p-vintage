@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+
+//microCMS呼び出し
+import { getBlogs } from "../library/microcms";
+const response = await getBlogs({ fields: ["id", "title", "eyecatch"] });
+
+---
+
+<Layout title="P vintage blogページ">
+  <main>
+    <ul>
+      {
+        response.contents.map((content: any) => (
+          <li>
+            <a href={content.id}>
+                {content.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style>
+
+
+</style>

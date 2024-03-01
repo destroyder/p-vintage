@@ -1,0 +1,198 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+
+//microCMS呼び出し
+import { getBlogs , getInfo } from "../library/microcms";
+const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"] });
+const responseInfo = await getInfo({ fields: ["info"] });
+
+
+
+// 時間表記変換
+const formatDate = (date:string) => {
+  const utcDateTime = new Date(date);
+  const japanTime = new Date(utcDateTime.getTime() + (9 * 60 * 60 * 1000));
+  const year = japanTime.getFullYear();
+  const month = japanTime.getMonth() + 1;
+  const day = japanTime.getDate();
+
+  return `${year}/${month}/${day}`;
+}
+
+
+---
+
+<style>
+  .main-visual{
+    text-align: center;
+    width: 100%;
+    height: 300px;
+    background-color: #f0f0f0;
+    position: relative;
+    margin-bottom:80px;
+  }
+  .main-visual__title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: #fff;
+  }
+  .main-visual__image{ 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .read-text{
+    text-align:center; 
+    max-width: 1200px;
+    margin:0 auto 80px;
+    padding:0 40px;
+    font-size:0.8rem;
+  }
+
+  .info{
+    max-width: 1200px;
+    margin:0 auto 80px;
+    padding:0 40px;
+  }
+  .info__title{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom:40px;
+  }
+  .info__text{
+    text-align: center;
+    font-size: .8rem;
+  }
+
+  .blog__title{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom:40px;
+  }
+  .blog__list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin:0 auto 80px;
+    gap:40px;
+    padding:0 40px;
+  }
+  .blog__list::after{
+    content: "";
+    width:calc(100% / 3 - 40px);
+  }
+  .blog__list__item{
+    width:calc(100% / 3 - 40px);
+  }
+  .blog__list__item img{
+    width:100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+  }
+  .blog__list__item__title{
+    margin:8px 0;
+  }
+  .blog__list__item__category{
+    padding:4px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  .blog__list__item__date{
+    margin-left: 8px;
+    font-size: 0.8rem;
+    color:#999;
+  }
+  .blog__list__item{
+    width:calc(100% / 3 - 40px);
+  }
+  .contact__title{ 
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom:40px;
+  }
+  .contact__text{
+    text-align:center; 
+    max-width: 1200px;
+    margin:0 auto 80px;
+    padding:0 40px;
+    font-size:0.8rem;
+  }
+  .contact__link{
+    text-decoration: underline;
+  }
+</style>
+
+
+
+<Layout title="P vintage Webサイト">
+  <main>
+    <section id="mainVisual">
+      <div class="main-visual">
+        <h1 class="main-visual__title">P Vintage</h1>
+        <!-- <Image src={logoImg} class="main-visual__image" width="1000" height="400" alt="P vintage Webサイト" /> -->
+      </div>
+    </section>
+
+
+    <!-- info -->
+    {responseInfo.info && 
+      <section id="info" class="info">
+        <h2 class="info__title">Info</h2>
+        <p class="info__text">
+          {responseInfo.info}
+        </p>
+      </section>
+    }
+
+    <!-- read文 -->
+    <section id="readText">
+      <p class="read-text">
+        P Vintageは、90年代にあったレギュラー古着と自分たちが素敵だと感じた古着の販売をしています。<br>
+        取り扱う古着は、デニム、ワーク、ミリタリー、スポーツ、アウトドアを中心に取り扱っています。<br>
+        また、古着のリメイク商品も取り扱っています。<br>
+        ぜひ、ご覧いただけますと幸いです。
+      </p>
+    </section>
+
+    <!-- blog -->
+    <section id="blog">
+      <h2 class="blog__title">Blog</h2>
+      <ul class="blog__list">
+        {
+          response.contents.map((content: any) => (
+            <li class="blog__list__item">
+              <a href={content.id}>
+                <div><Image src={content.eyecatch.url} width="300" height="200" alt={content.title} /></div>
+                <p class="blog__list__item__title">{content.title}</p>
+                <p><span class="blog__list__item__category">{content.category.name}</span><span class="blog__list__item__date">[{formatDate(content.publishedAt)}]</span></p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+
+    <!-- <section id="instagram">
+      <h2 class="blog__title">instagram</h2>
+    </section> -->
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="contact__title">Contact</h2>
+      <p class="contact__text">
+        お問合せはお手数ですが、<a href="https://www.instagram.com/p_vintage.sleep/" class="contact__link" target="_blank">Instagram</a>のDMからお願いいたします。
+      </p>
+    </section>
+
+
+  </main>
+</Layout>
+
