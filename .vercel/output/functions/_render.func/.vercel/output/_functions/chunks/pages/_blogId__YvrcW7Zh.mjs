@@ -1026,9 +1026,6 @@ const getBlogDetail = async (contentId, queries) => {
     queries
   });
 };
-const getInfo = async (queries) => {
-  return await client.get({ endpoint: "info", queries });
-};
 
 const $$Astro = createAstro();
 async function getStaticPaths() {
@@ -1066,4 +1063,4 @@ const _blogId_ = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { $$Layout as $, _blogId_ as _, getConfiguredImageService as a, getInfo as b, $$Image as c, getBlogs as g, imageConfig as i };
+export { $$Layout as $, _blogId_ as _, getConfiguredImageService as a, getBlogs as g, imageConfig as i };

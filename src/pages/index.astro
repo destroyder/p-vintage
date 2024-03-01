@@ -3,9 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from 'astro:assets';
 
 //microCMS呼び出し
-import { getBlogs , getInfo } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"] });
-const responseInfo = await getInfo({ fields: ["info"] });
+// import { getBlogs , getInfo } from "../library/microcms";
+// const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"] });
+// const responseInfo = await getInfo({ fields: ["info"] });
 
 
 
@@ -142,14 +142,14 @@ const formatDate = (date:string) => {
 
 
     <!-- info -->
-    {responseInfo.info && 
+    <!-- {responseInfo.info && 
       <section id="info" class="info">
         <h2 class="info__title">Info</h2>
         <p class="info__text">
           {responseInfo.info}
         </p>
       </section>
-    }
+    } -->
 
     <!-- read文 -->
     <section id="readText">
@@ -164,7 +164,7 @@ const formatDate = (date:string) => {
     <!-- blog -->
     <section id="blog">
       <h2 class="blog__title">Blog</h2>
-      <ul class="blog__list">
+      <!-- <ul class="blog__list">
         {
           response.contents.map((content: any) => (
             <li class="blog__list__item">
@@ -176,7 +176,7 @@ const formatDate = (date:string) => {
             </li>
           ))
         }
-      </ul>
+      </ul> -->
     </section>
 
 

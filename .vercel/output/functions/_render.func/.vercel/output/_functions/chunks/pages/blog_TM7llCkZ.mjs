@@ -1,7 +1,7 @@
 /* empty css                             */
 import { e as createAstro, f as createComponent, r as renderTemplate, i as renderComponent, m as maybeRenderHead, h as addAttribute } from '../astro_CnvCEa5M.mjs';
 import 'kleur/colors';
-import { g as getBlogs, $ as $$Layout } from './_blogId__7fxdHz1I.mjs';
+import { g as getBlogs, $ as $$Layout } from './_blogId__YvrcW7Zh.mjs';
 
 const $$Astro = createAstro();
 const $$Blog = createComponent(async ($$result, $$props, $$slots) => {
