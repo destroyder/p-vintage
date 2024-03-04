@@ -1,21 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from 'astro:assets';
+import '../styles/blog.scss';
 
 //microCMS呼び出し
 import { getBlogs } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title", "eyecatch"] });
+const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"] });
+
+// 時間表記変換（共通化可能）
+const formatDate = (date:string) => {
+  const utcDateTime = new Date(date);
+  const japanTime = new Date(utcDateTime.getTime() + (9 * 60 * 60 * 1000));
+  const year = japanTime.getFullYear();
+  const month = japanTime.getMonth() + 1;
+  const day = japanTime.getDate();
+
+  return `${year}/${month}/${day}`;
+}
 
 ---
 
-<Layout title="P vintage blogページ">
-  <main>
-    <ul>
+<Layout title="blog記事一覧 P-Vintage">
+  <main class="blog">
+    <h2 class="blog__title">Blog</h2>
+    <ul class="blog__list">
       {
         response.contents.map((content: any) => (
-          <li>
+          <li class="blog__list__item">
             <a href={content.id}>
-                {content.title}
+              <div><Image src={content.eyecatch.url} width="300" height="200" alt={content.title} /></div>
+              <p class="blog__list__item__title">{content.title}</p>
+              <p class="blog__list__item__info"><span class="blog__list__item__category">{content.category.name}</span><span class="blog__list__item__date">[{formatDate(content.publishedAt)}]</span></p>
             </a>
           </li>
         ))
@@ -23,8 +38,3 @@ const response = await getBlogs({ fields: ["id", "title", "eyecatch"] });
     </ul>
   </main>
 </Layout>
-
-<style>
-
-
-</style>

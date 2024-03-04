@@ -1,15 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from 'astro:assets';
+import '../styles/blog.scss';
 
 //microCMS呼び出し
 import { getBlogs , getInfo } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"] });
+const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"],limit:3 });
 const responseInfo = await getInfo({ fields: ["info"] });
 
 
 
-// 時間表記変換
+// 時間表記変換（共通化可能）
 const formatDate = (date:string) => {
   const utcDateTime = new Date(date);
   const japanTime = new Date(utcDateTime.getTime() + (9 * 60 * 60 * 1000));
@@ -69,49 +70,6 @@ const formatDate = (date:string) => {
     font-size: .8rem;
   }
 
-  .blog__title{
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom:40px;
-  }
-  .blog__list{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin:0 auto 80px;
-    gap:40px;
-    padding:0 40px;
-  }
-  .blog__list::after{
-    content: "";
-    width:calc(100% / 3 - 40px);
-  }
-  .blog__list__item{
-    width:calc(100% / 3 - 40px);
-  }
-  .blog__list__item img{
-    width:100%;
-    aspect-ratio: 3/2;
-    object-fit: cover;
-  }
-  .blog__list__item__title{
-    margin:8px 0;
-  }
-  .blog__list__item__category{
-    padding:4px 8px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    font-size: 0.8rem;
-  }
-  .blog__list__item__date{
-    margin-left: 8px;
-    font-size: 0.8rem;
-    color:#999;
-  }
-  .blog__list__item{
-    width:calc(100% / 3 - 40px);
-  }
   .contact__title{ 
     text-align: center;
     font-size: 2rem;
@@ -131,7 +89,7 @@ const formatDate = (date:string) => {
 
 
 
-<Layout title="P vintage Webサイト">
+<Layout title="P-Vintage Webサイト">
   <main>
     <section id="mainVisual">
       <div class="main-visual">
@@ -171,7 +129,7 @@ const formatDate = (date:string) => {
               <a href={content.id}>
                 <div><Image src={content.eyecatch.url} width="300" height="200" alt={content.title} /></div>
                 <p class="blog__list__item__title">{content.title}</p>
-                <p><span class="blog__list__item__category">{content.category.name}</span><span class="blog__list__item__date">[{formatDate(content.publishedAt)}]</span></p>
+                <p class="blog__list__item__info"><span class="blog__list__item__category">{content.category.name}</span><span class="blog__list__item__date">[{formatDate(content.publishedAt)}]</span></p>
               </a>
             </li>
           ))
