@@ -75,3 +75,24 @@
 .blog__list__item {
   width: calc(100% / 3 - 40px);
 }
+
+// ブログ検索inoput
+.blog-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 40px;
+  &__input {
+    width: 100%;
+    max-width: 400px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  &__label {
+    margin-right: 16px;
+    white-space: nowrap;
+  }
+}

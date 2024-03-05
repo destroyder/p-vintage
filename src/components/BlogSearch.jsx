@@ -1,19 +1,21 @@
-import formatDate from "./business/formatDate.ts";
+import { useState } from "react";
 
-export default function BlogList({ response }) {
-  const bloglists = response.contents?.map((content) => (
-    <li className="blog__list__item">
-      <a href={content.id}>
-        <div>
-          <img src={content.eyecatch.url} width="300" height="200" alt={content.title} />
-        </div>
-        <p className="blog__list__item__title">{content.title}</p>
-        <p className="blog__list__item__info">
-          <span className="blog__list__item__category">{content.category.name}</span>
-          <span className="blog__list__item__date">[{formatDate(content.publishedAt)}]</span>
-        </p>
-      </a>
-    </li>
-  ));
-  return <ul className="blog__list">{bloglists ? bloglists : null}</ul>;
+export default function BlogSearch(props) {
+  const inputValue = (event) => {
+    const value = event.target.value;
+    props.inputValue(value);
+  };
+
+  return (
+    <form className="blog-search">
+      <label className="blog-search__label">検索：</label>
+      <input
+        type="text"
+        name="text"
+        onChange={inputValue}
+        className="blog-search__input"
+        placeholder="見出しに含まれる文字を入力してください"
+      />
+    </form>
+  );
 }

@@ -1,8 +1,25 @@
+import { useState } from "react";
+
 import formatDate from "./business/formatDate.ts";
+// blog検索inputコンポーネント
+import BlogSearch from "../components/BlogSearch.jsx";
 
 export default function BlogList({ response }) {
-  const bloglists = response.contents.map((content) => (
-    <li className="blog__list__item">
+  // ブログ記事一覧をstateで管理。初期値はpropsで受け取った値。
+  const [bloglist, setBloglist] = useState(response);
+
+  // 検索inputの値をstateにセット。responseから検索結果を表示するためにsetBloglistを使用。
+  const inputValue = (val) => {
+    const searchResult = response.contents.filter((content) => {
+      const inputVal = content.title.includes(val);
+      const inputValUpper = content.title.toUpperCase().includes(val.toUpperCase());
+      return inputVal || inputValUpper;
+    });
+    setBloglist({ contents: searchResult });
+  };
+
+  const bloglists = bloglist.contents.map((content) => (
+    <li className="blog__list__item" key={content.id}>
       <a href={content.id}>
         <div>
           <img src={content.eyecatch.url} width="300" height="200" alt={content.title} />
@@ -15,5 +32,11 @@ export default function BlogList({ response }) {
       </a>
     </li>
   ));
-  return <ul className="blog__list">{bloglists ? bloglists : null}</ul>;
+
+  return (
+    <>
+      <BlogSearch client:load inputValue={inputValue} />
+      <ul className="blog__list">{bloglists ? bloglists : null}</ul>
+    </>
+  );
 }

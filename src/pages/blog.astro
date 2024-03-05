@@ -9,11 +9,12 @@ const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedA
 // blog一覧コンポーネント
 import BlogList from "../components/BlogList.jsx";
 
+
 ---
 
 <Layout title="blog記事一覧 P-Vintage">
   <main class="blog">
     <h2 class="blog__title">Blog</h2>
-    <BlogList response={response} />
+    <BlogList response={response} client:load />
   </main>
 </Layout>
