@@ -8,19 +8,11 @@ import { getBlogs , getInfo } from "../library/microcms";
 const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"],limit:3 });
 const responseInfo = await getInfo({ fields: ["info"] });
 
+// blog一覧コンポーネント
+import BlogList from "../components/BlogList.jsx";
 
-
-// 時間表記変換（共通化可能）
-const formatDate = (date:string) => {
-  const utcDateTime = new Date(date);
-  const japanTime = new Date(utcDateTime.getTime() + (9 * 60 * 60 * 1000));
-  const year = japanTime.getFullYear();
-  const month = japanTime.getMonth() + 1;
-  const day = japanTime.getDate();
-
-  return `${year}/${month}/${day}`;
-}
-
+// mainvisual画像
+import MvImg from "../images/mv.jpg";
 
 ---
 
@@ -29,9 +21,10 @@ const formatDate = (date:string) => {
     text-align: center;
     width: 100%;
     height: 300px;
-    background-color: #f0f0f0;
+    background-color: #000;
     position: relative;
     margin-bottom:80px;
+    object-fit: cover;
   }
   .main-visual__title{
     position: absolute;
@@ -40,11 +33,16 @@ const formatDate = (date:string) => {
     transform: translate(-50%, -50%);
     font-size: 2.5rem;
     color: #fff;
+    opacity: 1;
+    z-index: 1;
+    font-weight:600;
+    letter-spacing: .3rem;
   }
   .main-visual__image{ 
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.5;
   }
 
   .read-text{
@@ -93,8 +91,8 @@ const formatDate = (date:string) => {
   <main>
     <section id="mainVisual">
       <div class="main-visual">
-        <h1 class="main-visual__title">P Vintage</h1>
-        <!-- <Image src={logoImg} class="main-visual__image" width="1000" height="400" alt="P vintage Webサイト" /> -->
+        <h1 class="main-visual__title">P-Vintage</h1>
+        <Image src={MvImg} class="main-visual__image" width="1000" height="400" alt="P vintage Webサイト" />
       </div>
     </section>
 
@@ -122,19 +120,7 @@ const formatDate = (date:string) => {
     <!-- blog -->
     <section id="blog">
       <h2 class="blog__title">Blog</h2>
-      <ul class="blog__list">
-        {
-          response.contents.map((content: any) => (
-            <li class="blog__list__item">
-              <a href={content.id}>
-                <div><Image src={content.eyecatch.url} width="300" height="200" alt={content.title} /></div>
-                <p class="blog__list__item__title">{content.title}</p>
-                <p class="blog__list__item__info"><span class="blog__list__item__category">{content.category.name}</span><span class="blog__list__item__date">[{formatDate(content.publishedAt)}]</span></p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <BlogList response={response} />
     </section>
 
 
