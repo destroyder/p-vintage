@@ -8,6 +8,10 @@ import { getBlogs , getInfo } from "../library/microcms";
 const response = await getBlogs({ fields: ["id", "title", "eyecatch","publishedAt","category"],limit:3 });
 const responseInfo = await getInfo({ fields: ["info"] });
 
+// 画像
+import mvImg from "../images/mv.jpg";
+import instagramImg from "../images/instagram.jpg";
+
 // MVコンポーネント
 import MainVisual from "../components/MainVisual.jsx";
 
@@ -17,8 +21,7 @@ import BlogList from "../components/BlogList.jsx";
 // ボタンコンポーネント
 import Button from "../components/atoms/Button.tsx";
 
-// 画像
-import instagramImg from "../images/instagram.jpg";
+
 
 ---
 
@@ -105,7 +108,7 @@ import instagramImg from "../images/instagram.jpg";
 
 <Layout title="P-Vintage Webサイト">
   <main>
-    <MainVisual />
+    <MainVisual mvImg={mvImg} />
 
     <!-- info -->
     {responseInfo.info && 

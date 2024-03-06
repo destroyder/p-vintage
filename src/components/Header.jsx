@@ -1,9 +1,9 @@
-export default function Header() {
+export default function Header({ logoImg }) {
   return (
     <header className="p-header fixed">
       <div className="p-header-logo">
         <a href="/">
-          <img src="src/images/logo.png" width="50" height="50" alt="p-vintage" />
+          <img src={logoImg.src} width="50" height="50" alt="p-vintage" />
         </a>
       </div>
       <nav className="p-header-link">

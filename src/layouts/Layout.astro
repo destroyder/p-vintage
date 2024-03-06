@@ -2,7 +2,7 @@
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import '../styles/common.scss';
-
+import logoImg from "/src/images/logo.png";
 
 interface Props {
 	title: string;
@@ -38,7 +38,7 @@ const { title } = Astro.props;
 		gtag('config', 'G-5D1KZEV9ZG');
 	</script>
 	<body>
-		<Header />
+		<Header logoImg={logoImg} />
 		<slot />
 		<Footer />
 	</body>
