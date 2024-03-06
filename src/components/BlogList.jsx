@@ -8,11 +8,12 @@ export default function BlogList({ response }) {
   // ブログ記事一覧をstateで管理。初期値はpropsで受け取った値。
   const [bloglist, setBloglist] = useState(response);
 
-  // 検索inputの値をstateにセット。responseから検索結果を表示するためにsetBloglistを使用。
+  // inputValueはBlogSearchの中のinputの値をstateにセット。
   const inputValue = (val) => {
     const searchResult = response.contents.filter((content) => {
       const inputVal = content.title.includes(val);
       const inputValUpper = content.title.toUpperCase().includes(val.toUpperCase());
+      // 大文字も小文字も検索対象にする。
       return inputVal || inputValUpper;
     });
     setBloglist({ contents: searchResult });
@@ -36,7 +37,7 @@ export default function BlogList({ response }) {
   return (
     <>
       <BlogSearch client:load inputValue={inputValue} />
-      <ul className="blog__list">{bloglists ? bloglists : null}</ul>
+      <ul className="blog__list">{bloglists}</ul>
     </>
   );
 }

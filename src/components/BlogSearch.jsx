@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function BlogSearch(props) {
   const inputValue = (event) => {
     const value = event.target.value;
