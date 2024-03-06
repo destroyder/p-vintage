@@ -25,3 +25,24 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* button */
+.button__common {
+  text-align: center;
+  margin: 0 auto 40px;
+  &__link {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff6a88;
+    margin: 0 auto;
+    transition: 0.3s;
+    &:hover {
+      background-color: #fc33ac;
+    }
+  }
+}

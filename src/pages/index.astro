@@ -11,8 +11,12 @@ const responseInfo = await getInfo({ fields: ["info"] });
 // blog一覧コンポーネント
 import BlogList from "../components/BlogList.jsx";
 
+// ボタンコンポーネント
+import Button from "../components/atoms/Button.tsx";
+
 // mainvisual画像
 import MvImg from "../images/mv.jpg";
+import instagramImg from "../images/instagram.jpg";
 
 ---
 
@@ -62,6 +66,8 @@ import MvImg from "../images/mv.jpg";
     text-align: center;
     font-size: 2rem;
     margin-bottom:40px;
+    font-weight:600;
+    letter-spacing: .3rem;
   }
   .info__text{
     text-align: center;
@@ -72,6 +78,8 @@ import MvImg from "../images/mv.jpg";
     text-align: center;
     font-size: 2rem;
     margin-bottom:40px;
+    font-weight:600;
+    letter-spacing: .3rem;
   }
   .contact__text{
     text-align:center; 
@@ -83,6 +91,40 @@ import MvImg from "../images/mv.jpg";
   .contact__link{
     text-decoration: underline;
   }
+
+
+  .instagram__title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+  }
+  .instagram__wrap{
+    text-align: center;
+    width: 100%;
+    height: 300px;
+    background-color: #000;
+    position: relative;
+    margin-bottom:80px;
+    object-fit: cover;
+  }
+  .instagram__text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    opacity: 1;
+    z-index: 1;
+  }
+  .instagram__image{ 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
 </style>
 
 
@@ -121,12 +163,20 @@ import MvImg from "../images/mv.jpg";
     <section id="blog" class="blog__index">
       <h2 class="blog__title">Blog</h2>
       <BlogList response={response} />
+      <Button href="/blog" text="ブログの記事一覧を見る" />
     </section>
 
 
-    <!-- <section id="instagram">
-      <h2 class="blog__title">instagram</h2>
-    </section> -->
+    <section id="instagram" class="pt-6">
+      <h2 class="instagram__title">instagram</h2>
+      <div class="instagram__wrap">
+        <div class="instagram__text">
+          <p class="pb-4 pt-4">P-Vintageのinstagramです。<br />最新の商品情報やイベント情報を更新しています。</p>
+          <Button href="https://www.instagram.com/p_vintage.sleep/" text="instagram" />
+        </div>
+        <Image src={instagramImg} class="instagram__image" width="1000" height="400" alt="P vintage instagram" />
+      </div>
+    </section>
 
     <!-- Contact -->
     <section id="contact">
