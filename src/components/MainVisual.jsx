@@ -1,7 +1,6 @@
 import "../styles/mainVisual.scss";
 
 export default function MainVisual({ mvImg }) {
-  console.log({ mvImg });
   return (
     <section id="mainVisual">
       <div className="main-visual">
