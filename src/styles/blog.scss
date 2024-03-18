@@ -1,3 +1,5 @@
+@import "mixin";
+
 /* blog記事ページ */
 .blog {
   padding-top: 5rem;
@@ -51,6 +53,10 @@
 .blog__list__item {
   width: calc(100% / 3 - 40px);
   background-color: #fff;
+  @include mq("sp") {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 .blog__list__item img {
   width: 100%;
@@ -73,9 +79,6 @@
   margin-left: 8px;
   font-size: 0.8rem;
   color: #999;
-}
-.blog__list__item {
-  width: calc(100% / 3 - 40px);
 }
 
 // ブログ検索inoput
