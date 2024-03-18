@@ -7,7 +7,8 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://p-vintage.vercel.app",
   integrations: [tailwind(), react(), sitemap()],
   output: "static",
-  adapter: vercel()
+  adapter: vercel(),
 });
