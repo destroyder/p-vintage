@@ -11,11 +11,17 @@ export default function BlogList({ response }) {
   // inputValueはBlogSearchの中のinputの値をstateにセット。
   const inputValue = (val) => {
     const searchResult = response.contents.filter((content) => {
+      // 大文字も小文字も検索対象にする。
       const inputVal = content.title.includes(val);
       const inputValUpper = content.title.toUpperCase().includes(val.toUpperCase());
-      // 大文字も小文字も検索対象にする。
-      return inputVal || inputValUpper;
+
+      if (inputVal || inputValUpper) {
+        return inputVal || inputValUpper;
+      }
     });
+
+    console.log(searchResult);
+
     setBloglist({ contents: searchResult });
   };
 
@@ -37,7 +43,9 @@ export default function BlogList({ response }) {
   return (
     <>
       <BlogSearch client:load inputValue={inputValue} />
-      <ul className="blog__list">{bloglists}</ul>
+      <ul className="blog__list">
+        {bloglists.length ? bloglists : <li className="blog__list--nosearch">該当記事がありません</li>}
+      </ul>
     </>
   );
 }
