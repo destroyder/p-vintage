@@ -20,8 +20,6 @@ export default function BlogList({ response }) {
       }
     });
 
-    console.log(searchResult);
-
     setBloglist({ contents: searchResult });
   };
 

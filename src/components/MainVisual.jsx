@@ -1,4 +1,4 @@
-import "../styles/mainVisual.scss";
+import "../styles/components/mainVisual.scss";
 
 export default function MainVisual({ mvImg }) {
   return (
