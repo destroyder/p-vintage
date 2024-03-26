@@ -1,19 +1,27 @@
 import "../styles/components/introAnime.scss";
 
 export default function IntroAnime() {
+  // 1度だけアニメーションを再生するためsessionStorageで管理
+  const isLoadedAnime = sessionStorage.getItem("isLoadAnime");
+  if (isLoadedAnime) {
+    return;
+  } else {
+    sessionStorage.setItem("isLoadAnime", "true");
+  }
+
   return (
     <>
       <section id="intro">
-        <div class="intro">
+        <div className="intro">
           <svg width="242.16" height="86.961" viewBox="0 0 242.16 86.961" xmlns="http://www.w3.org/2000/svg">
             <g
               className="intro_svg"
               id="svgGroup"
-              stroke-linecap="round"
-              fill-rule="evenodd"
-              font-size="9pt"
+              strokeLinecap="round"
+              fillRule="evenodd"
+              fontSize="9pt"
               stroke="#0f0554"
-              stroke-width="3px"
+              strokeWidth="3px"
               fill="#0f0554"
             >
               <path
